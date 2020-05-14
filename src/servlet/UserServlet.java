@@ -1,9 +1,7 @@
 package servlet;
 
-import dao.UserDAO;
-import dao.UserDAOImpl;
-import pojo.User;
-import util.Page;
+import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,67 +9,104 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-import java.util.List;
+import pojo.User;
+import dao.UserDAO;
+import dao.UserDAOImpl;
 
+/**
+ * Servlet implementation class UserServlet
+ */
+//userServelt_reset  userServlet_list  struts框架
 @WebServlet("/userServlet")
-public class UserServlet extends HttpServlet {
-//	private UserDAO userDAO= new UserDAOImpl();
+public class UserServlet extends BaseServlet {
+	private static final long serialVersionUID = 1L;
+	private UserDAO userDAO = new UserDAOImpl();
 
-    private static final long serialVersionUID = 1L;
 
-//    public String add(HttpServletRequest request, HttpServletResponse response, Page page) {
-//        return null;
-//    }
-//
-//    public String delete(HttpServletRequest request, HttpServletResponse response, Page page) {
-//        return null;
-//    }
-//
-//    public String edit(HttpServletRequest request, HttpServletResponse response, Page page) {
-//        return null;
-//    }
-//
-//    public String update(HttpServletRequest request, HttpServletResponse response, Page page) {
-//        return null;
-//    }
-    public UserServlet() {
-        super();
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		/*
+		 * String flag = request.getParameter("flag"); if (flag != null &&
+		 * flag.equals("reset")) { //TODO 处理重置密码请求 String
+		 * uid=request.getParameter("uid"); } else { List<User> users = userDAO.list();
+		 * request.setAttribute("users", users);
+		 * request.getRequestDispatcher("admin/listUser.jsp").forward(request,
+		 * response); }
+		 * request.getRequestDispatcher("admin/listUser.jsp").forward(request,
+		 * response);
+		 */
+		String result=null;
+		String flag = request.getParameter("flag"); 
+		 if (flag != null && flag.equals("reset")) { 
+			 //处理重置密码请求 String
+			 update();
+			 result=list();
+		 }
+		 else {
+			//用户列表显示
+			result=list();
+		}
+		 //response.sendRedirect(result);
+		 request.getRequestDispatcher(result).forward(request,response);
+	}
+	
+	//处理重置密码请求
+    private String update() {
+		String uid=request.getParameter("uid");
+		User user=userDAO.get(Integer.parseInt(uid));
+		user.setPassword("123456");  
+		userDAO.update(user);
+		return null;
     }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String flag = req.getParameter("flag");
-        String uid = req.getParameter("uid");
-
-        if(flag != null && flag.equals("Reset")) {
-            if(uid != null) {
-                UserDAO userDAO = new UserDAOImpl();
-                List<User> users = userDAO.list();
-                for (User user : users) {
-                    if(user.getId() == Integer.parseInt(uid)) user.setPassword("123456");
-                }
-            }
-        } else {
-            UserDAO userDAO = new UserDAOImpl();
-            List<User> users = userDAO.list();
-            req.setAttribute("users", users);
-            req.getRequestDispatcher("admin/listUser.jsp").forward(req, resp);
-        }
+     
+  //处理用户列表请求
+    private String list() {
+    	List<User> users = userDAO.list();
+		request.setAttribute("users", users);
+        return "admin/listUser.jsp";
     }
+	
+	
+    /**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+	
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
-    }
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+	}
 
-//    public String list(HttpServletRequest request, HttpServletResponse response, Page page) {
-//    	List<User> users = userDAO.list(page.getStart(), page.getCount());
-//        int total = userDAO.getTotal();
-//        page.setTotal(total);
-//        request.setAttribute("users", users);
-//        request.setAttribute("page", page);
-//        return "admin/listUser.jsp";
-//    }
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+	}
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.service(req, resp);
+	}
 }

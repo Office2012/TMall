@@ -8,7 +8,7 @@
 
     <img id="loginBackgroundImg" class="loginBackgroundImg" src="img/site/loginBackground.png">
 
-<form class="loginForm" action="loginRes.jsp" method="post" onsubmit="return validate(this);">
+<form class="loginForm" action="loginServlet" method="post">
 		<input type="hidden" name="type" value="login"/>
         <div id="loginSmallDiv" class="loginSmallDiv">
             <div class="loginErrorMessageDiv">
@@ -43,15 +43,6 @@
             </div>
         </div>
     </form>
-    <script type="text/javascript">
-    function validate(loginForm) {
-        if(loginForm.name.value == "admin" && loginForm.password.value == "123456")  {
-            return true;
-        }
-        alert("登录失败");
-        return false;
-    }
-    </script>
 
     </div>
 
