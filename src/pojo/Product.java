@@ -1,7 +1,9 @@
 package pojo;
 
+import javax.persistence.Entity;
 import java.util.Date;
 import java.util.List;
+
 
 public class Product {
     private String name;   //商品名
