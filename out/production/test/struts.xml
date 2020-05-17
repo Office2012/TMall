@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation"
+              value="true" />
+    <constant name="struts.devMode" value="true" />
+    <!-- 配置文件修改了，不需要重启服务器 -->
+    <constant name="struts.configuration.xml.reload" value="true" />
+    <package abstract="true" name="default"
+             extends="struts-default">
+        <interceptors>
+            <interceptor name="authorityInterceptor"
+                         class="interceptor.AuthorityInterceptor">
+            </interceptor>
+            <interceptor-stack name="auth-dafault">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="authorityInterceptor" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="auth-dafault" />
+        <global-results>
+            <result name="error">/error.jsp</result>
+            <result name="login">/login.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception"
+                               result="error" />
+        </global-exception-mappings>
+    </package>
+
+    <package name="user" extends="struts-default" strict-method-invocation="false">
+        <global-allowed-methods>verify</global-allowed-methods>
+        <action name="Login" class="action.LoginAction"
+                method="verify">
+            <result name="success">/userServlet</result>
+            <result name="login">/login.jsp</result>
+        </action>
+    </package>
+
+    <package name="product" extends="default">
+        <!-- struts 2.5 为了增加安全性,默认情况下通配符不能用 -->
+        <global-allowed-methods>regex:.*</global-allowed-methods>
+        <action name="*Product"
+                class="action.ProductAction" method="{1}">
+            <result name="listProduct">/admin/product/listProduct.jsp</result>
+            <result name="editProduct">/admin/product/editProduct.jsp</result>
+            <result name="success" type="chain">listProduct</result>
+        </action>
+        <action name="*">   <!-- 用于处理链接jsp页面请求 -->
+            <result>/admin/product/{1}.jsp</result>
+        </action>
+    </package>
+
+</struts>
+

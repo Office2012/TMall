@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 //权限验证过滤器
-@WebFilter(dispatcherTypes = {DispatcherType.REQUEST },urlPatterns = { "/*" })
+@WebFilter(dispatcherTypes = {DispatcherType.REQUEST },urlPatterns = { "/ck/*" })
 public class AuthorityFilter implements Filter {
 	private String logPage="/login.jsp";
 	@Override
@@ -29,6 +29,8 @@ public class AuthorityFilter implements Filter {
 		String request_uri = req.getRequestURI();
 		String contextPath = req.getContextPath();
 		String uri = request_uri.substring(contextPath.length());
+
+		System.out.println("fck");
 
 		if (req.getSession().getAttribute("user") == null) {
 			if (uri.equals(logPage) || request_uri.indexOf("css/") > 0
