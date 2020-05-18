@@ -8,7 +8,7 @@
 
     <img id="loginBackgroundImg" class="loginBackgroundImg" src="img/site/loginBackground.png">
 
-<form class="loginForm" action="Login.action" method="post">
+<form class="loginForm" action="user/listUser.do" method="post">
 		<input type="hidden" name="type" value="login"/>
         <div id="loginSmallDiv" class="loginSmallDiv">
             <div class="loginErrorMessageDiv">

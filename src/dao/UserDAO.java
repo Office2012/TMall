@@ -1,9 +1,12 @@
 package dao;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import pojo.User;
 
 import java.util.List;
 
+@Repository
 public interface UserDAO {
     int getTotal();
     void add(User user);

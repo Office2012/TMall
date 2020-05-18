@@ -1,11 +1,13 @@
 package dao;
 
+import org.springframework.stereotype.Service;
 import util.DBUtil;
 import java.sql.*;
 import java.util.ArrayList;
 import pojo.User;
 import java.util.List;
 
+@Service
 public class UserDAOImpl implements UserDAO {
 	private Connection connection = null;
 	private PreparedStatement pstmt = null;
