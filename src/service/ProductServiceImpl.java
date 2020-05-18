@@ -7,8 +7,15 @@ import dao.CategoryDAO;
 import dao.CategoryDAOImpl;
 import dao.ProductDAO;
 import dao.ProductDAOImpl;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import pojo.Category;
 import pojo.Product;
+import util.HibernateUtil;
 import util.Page;
 
 public class ProductServiceImpl extends BaseServiceImpl implements ProductService {
@@ -39,15 +46,34 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 
 	@Override
 	public Boolean delete(int id) {
-		// TODO Auto-generated method stub
-	
+		//此处根据id使用hql语句查询到指定的product 然后将其delete
+		Session session = HibernateUtil.getSession();
+
+		String a = "SELECT p from Product as p where id = ?1";
+		Query query = session.createQuery(a);
+		query.setParameter(1,id);
+
+		Product product = (Product)query.uniqueResult();
+
+		Transaction transaction = session.beginTransaction();
+
+		session.delete(product);
+		transaction.commit();
+
+		session.close();
+
 		return true;
 	}
 
 	@Override
 	public Boolean update(Product product) {
-		// TODO Auto-generated method stub
-		//productDAO.update(product);
+		//此处获取session 直接save即可
+		Session session = HibernateUtil.getSession();
+		Transaction transaction = session.beginTransaction();
+
+		session.saveOrUpdate(product);
+		transaction.commit();
+		session.close();
 		
 		return true;
 	}

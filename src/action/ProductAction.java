@@ -39,14 +39,15 @@ public class ProductAction extends ActionSupport {
         return "";
     }
 
-    //删除
+    //删除商品
     public String delete() {
-        productService.delete(id);
+		productService.delete((int)id);
         return "success";
     }
     
     //编辑
     public String edit() {
+
     	List list= productService.get(id);
     	Product product=(Product)list.get(0);
     	List<Category> categories=(List<Category>)list.get(1);
@@ -56,7 +57,7 @@ public class ProductAction extends ActionSupport {
     	return "editProduct";
     }
     
-    //更新 
+    //更新编辑后的商品
     public String update() {
     	productService.update(product);
         return "success";

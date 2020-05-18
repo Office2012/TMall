@@ -1,24 +1,44 @@
 package pojo;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
+@Entity
+@Table(name = "product")
 public class Product {
     private String name;   //商品名
     private String subTitle;   //
     private float originalPrice;  //原始价格
     private float promotePrice;   //优惠价格
     private int stock;    //库存
+
+    @Transient
     private Date createDate;   //创建日期
+
+    @Transient
     private Category category;   //类别
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;        //id
-    private ProductImage firstProductImage;  
-    private List<ProductImage> productImages;  //商品图片   
-    private List<ProductImage> productSingleImages; 
+
+    @Transient
+    private ProductImage firstProductImage;
+
+    @Transient
+    private List<ProductImage> productImages;  //商品图片
+
+    @Transient
+    private List<ProductImage> productSingleImages;
+
+    @Transient
     private List<ProductImage> productDetailImages;   //商品图片
+
+    @Transient
     private int reviewCount;
+
+    @Transient
     private int saleCount;
 
     public String getName() {

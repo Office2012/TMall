@@ -90,6 +90,10 @@
             </tbody>
         </table>
     </div>
+    <% String reqUri="product/listProduct.action"; %>
+    <div class="pageDiv">
+        <%-- <%@include file="../../include/admin/adminPage.jsp"%> --%>
+    </div>
 
 </div>
 
