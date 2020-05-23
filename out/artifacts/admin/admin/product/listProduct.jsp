@@ -9,7 +9,7 @@
          pageEncoding="UTF-8" isELIgnored="false" import="java.util.*"%>
 <%@ page import="pojo.Product" %>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@include file="../../include/admin/adminHeader.jsp"%>
 <%@include file="../../include/admin/adminNavigator.jsp"%>
 
@@ -92,7 +92,7 @@
     </div>
     <% String reqUri="product/listProduct.action"; %>
     <div class="pageDiv">
-        <%-- <%@include file="../../include/admin/adminPage.jsp"%> --%>
+        <%@include file="../../include/admin/adminPage.jsp"%>
     </div>
 
 </div>

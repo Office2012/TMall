@@ -23,6 +23,14 @@
     <context:component-scan
             base-package="dao">
     </context:component-scan>
+    <context:component-scan
+            base-package="action">
+    </context:component-scan>
+    <context:component-scan
+            base-package="service">
+    </context:component-scan>
+
+
 
     <!-- 支持AOP代理 -->
     <aop:aspectj-autoproxy />

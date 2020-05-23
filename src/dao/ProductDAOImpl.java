@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.internal.SessionFactoryImpl;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import pojo.Product;
 import pojo.ProductImage;
 import util.DBUtil;
@@ -12,7 +19,13 @@ import util.DateUtil;
 import pojo.Category;
 import dao.CategoryDAOImpl;
 
+import javax.annotation.Resource;
+
+@Repository
 public class ProductDAOImpl implements ProductDAO {
+
+    @Autowired
+    protected SessionFactory sessionFactory;
 
     @Override
 	public int getTotal(int cid) {
@@ -63,40 +76,22 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
 	public void update(Product bean) {
+        Session session = sessionFactory.getCurrentSession();
 
-        String sql = "update Product set name= ?, subTitle=?, originalPrice=?,promotePrice=?,stock=?, cid = ?, createDate=? where id = ?";
-        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-
-            ps.setString(1, bean.getName());
-            ps.setString(2, bean.getSubTitle());
-            ps.setFloat(3, bean.getOriginalPrice());
-            ps.setFloat(4, bean.getPromotePrice());
-            ps.setInt(5, bean.getStock());
-            ps.setInt(6, bean.getCategory().getId());
-            ps.setTimestamp(7, DateUtil.d2t(bean.getCreateDate()));
-            ps.setInt(8, bean.getId());
-            ps.execute();
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-        }
-
+        session.update(bean);
     }
 
     @Override
 	public void delete(int id) {
+        Session session = sessionFactory.getCurrentSession();
 
-        try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement()) {
+        String queryString = "SELECT p from Product as p where id = ?1";
+        Query query = session.createQuery(queryString);
+        query.setParameter(1,id);
 
-            String sql = "delete from Product where id = " + id;
+        Product product = (Product)query.uniqueResult();
 
-            s.execute(sql);
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-        }
+        session.delete(product);
     }
 
     @Override

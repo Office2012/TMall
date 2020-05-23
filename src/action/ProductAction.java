@@ -3,6 +3,8 @@ package action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import dao.CategoryDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import pojo.Category;
 import pojo.Product;
 import service.ProductService;
@@ -12,13 +14,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
 public class ProductAction extends ActionSupport {
 	private Product product;
 	private Page page;
 	private Integer start;
 	private Integer id;
-	private ProductService productService=new ProductServiceImpl();
+
+	@Autowired
+	private ProductService productService;
+
     //产品列表
 	public String list() {
         if (start == null) {
@@ -31,6 +35,8 @@ public class ProductAction extends ActionSupport {
     	List<Product> products= productService.listByPage(page);
     	Map<String,Object> request=(Map)ActionContext.getContext().get("request");
     	request.put("products", products);
+
+
         return "listProduct";
     }
 
