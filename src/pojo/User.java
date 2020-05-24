@@ -1,8 +1,15 @@
 package pojo;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "user")
 public class User {
     private String password;
     private String name;
+
+    @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     public String getPassword() {

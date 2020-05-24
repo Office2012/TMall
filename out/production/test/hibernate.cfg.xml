@@ -24,7 +24,7 @@
 		<property name="hibernate.c3p0.acquire_increment">2</property>
 		<property name="hibernate.c3p0.validate">true</property>
 		<!-- 指定数据库方言 -->
-		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
 		<!-- 外连接抓取的深度 -->
 		<property name="max_fetch_depth">1</property><!--① -->	
 		<!-- 根据需要自动创建数据表 -->

@@ -7,6 +7,6 @@
         <a class="navbar-brand" href="product/listProduct.action">网络商城后台</a>
         <a class="navbar-brand" href="admin_category_list">分类管理</a>
         <a class="navbar-brand" href="Login.action">用户管理</a>
-        <a class="navbar-brand" href="admin_order_list">订单管理</a>
+        <a class="navbar-brand" href="order/listOrder.action">订单管理</a>
     </nav>
 </div>

@@ -49,8 +49,13 @@
             <result name="editProduct">/admin/product/editProduct.jsp</result>
             <result name="success" type="chain">listProduct</result>
         </action>
-        <action name="*">   <!-- 用于处理链接jsp页面请求 -->
-            <result>/admin/product/{1}.jsp</result>
+    </package>
+
+    <package name="order" extends="struts-default">
+        <action name="listOrder"
+                class="action.OrderAction" method="list">
+            <result name="listOrder">/admin/order/listOrder.jsp</result>
+            <result name="success" type="chain">listOrder</result>
         </action>
     </package>
 

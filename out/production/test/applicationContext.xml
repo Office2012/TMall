@@ -68,11 +68,11 @@
         <!-- hibernate配置信息 -->
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <!-- 开启自动建表 -->
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
                 <!-- 关闭hibernate二级缓存 -->
                 <prop key="hibernate.cache.use_second_level_cache">false</prop>
                 <!-- 批量删除，批量更新和批量插入的时候的批次大小 -->

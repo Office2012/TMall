@@ -33,7 +33,7 @@
 			<appender-ref ref="Console" />
 			<appender-ref ref="Error" />
 		</root>
-		<Logger name="edu.fzu.tmall" additivity="false">
+		<Logger name="tmall" additivity="false">
 			<appender-ref ref="RollingFile" />
 			<appender-ref ref="Console" />
 		</Logger>
