@@ -19,9 +19,6 @@
 			var oid = $(this).attr("oid");
 			$("tr.orderPageOrderItemTR[oid=" + oid + "]").toggle();
 		});
-
-
-
 	});
 </script>
 <title>订单管理</title>
@@ -71,11 +68,10 @@
 						<td>
 							<button oid=${o.id
 								}
-								class="orderPageCheckOrderItems btn btn-primary btn-xs
-                        ">查看详情</button>
+								class="orderPageCheckOrderItems btn btn-primary btn-xs">查看详情</button>
 
 							<c:if test="${o.status=='waitDelivery'}">
-							<a href="order/deliveryOrder.action?id=${o.id}">
+							<a href="order/deliveryOrder.do?id=${o.id}">
 								<button oid=${o.id } class="btn btn-primary btn-xs delivery">发货</button></a>
 							</c:if>
 						</td>

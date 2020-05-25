@@ -31,6 +31,7 @@
         </global-exception-mappings>
     </package>
 
+    <!-- 登陆验证逻辑 -->
     <package name="user" extends="struts-default" strict-method-invocation="false">
         <global-allowed-methods>verify</global-allowed-methods>
         <action name="Login" class="action.LoginAction"
@@ -40,6 +41,7 @@
         </action>
     </package>
 
+    <!-- 商品列表 -->
     <package name="product" extends="default">
         <!-- struts 2.5 为了增加安全性,默认情况下通配符不能用 -->
         <global-allowed-methods>regex:.*</global-allowed-methods>
@@ -51,10 +53,15 @@
         </action>
     </package>
 
+    <!-- 订单管理 -->
     <package name="order" extends="struts-default">
         <action name="listOrder"
                 class="action.OrderAction" method="list">
             <result name="listOrder">/admin/order/listOrder.jsp</result>
+            <result name="success" type="chain">listOrder</result>
+        </action>
+        <action name="deliveryOrder"
+                class="action.OrderAction" method="delivery">
             <result name="success" type="chain">listOrder</result>
         </action>
     </package>

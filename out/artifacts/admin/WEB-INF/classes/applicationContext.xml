@@ -30,8 +30,6 @@
             base-package="service">
     </context:component-scan>
 
-
-
     <!-- 支持AOP代理 -->
     <aop:aspectj-autoproxy />
 

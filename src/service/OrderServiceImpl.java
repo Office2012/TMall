@@ -48,7 +48,6 @@ public class OrderServiceImpl  implements OrderService {
 
 		String queryString = "select order from Order order";
 
-
 		List<Order> orders = orderDAO.getOrders(queryString);
 
 		return orders;
@@ -79,6 +78,8 @@ public class OrderServiceImpl  implements OrderService {
 		Order order=orderDAO.get(Order.class, orderId);
 		order.setDeliveryDate(new Date());
 		order.setStatus("waitConfirm");
+
+
 		return order;
 	}
 }
